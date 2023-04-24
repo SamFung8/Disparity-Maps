@@ -2,15 +2,17 @@ import cv2 as cv2
 from matplotlib import pyplot as plt
 
 test_imgs = ["Art", "Dolls", "Reindeer"]
+max_value = [240,255,224]
+min_value = [32,24,64]
 
 for index in range(3):
     imgL = cv2.imread('../../img/'+test_imgs[index]+'/view1.png', cv2.IMREAD_GRAYSCALE)
     imgR = cv2.imread('../../img/'+test_imgs[index]+'/view5.png', cv2.IMREAD_GRAYSCALE)
 
     bSize = 3
-    minDisp = 16
-    maxDisp = 192
-    nDisp = maxDisp - minDisp + 100
+    minDisp = min_value[index]
+    maxDisp = max_value[index]
+    nDisp = maxDisp - minDisp
     disp12MaxDiff = 5
     uRatio = 1
     speckleWindowSize = 3
