@@ -1,4 +1,3 @@
-import numpy as np
 import cv2 as cv2
 from matplotlib import pyplot as plt
 
@@ -41,6 +40,7 @@ for index in range(3):
     wls_filter = cv2.ximgproc.createDisparityWLSFilter(matcher_left=stereoSGBM_L)
     wls_filter.setLambda(lmb)
     wls_filter.setSigmaColor(sigma)
+
     filtered_disp_L = wls_filter.filter(disp_L, imgL, disparity_map_right=disp_R)
     filtered_disp_L = cv2.normalize(filtered_disp_L, filtered_disp_L, alpha=255, beta=0, norm_type=cv2.NORM_MINMAX)
 
