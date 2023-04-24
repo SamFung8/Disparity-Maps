@@ -17,7 +17,7 @@ for index in range(3):
     speckleWindowSize = 3
     speckleRange = 3
 
-    stereoSGBM = cv2.StereoSGBM_create(
+    stereoSGBM_L = cv2.StereoSGBM_create(
         minDisparity=minDisp,
         numDisparities=nDisp,
         blockSize=bSize,
@@ -30,20 +30,20 @@ for index in range(3):
     )
 
 
-    dis1 = stereoSGBM.compute(imgL, imgR)
+    disp_L = stereoSGBM_L.compute(imgL, imgR)
 
-    matcher_img2 = cv2.ximgproc.createRightMatcher(stereoSGBM)
-    dis2 = matcher_img2.compute(imgR, imgL)
+    stereoSGBM_R = cv2.ximgproc.createRightMatcher(stereoSGBM_L)
+    disp_R = stereoSGBM_R.compute(imgR, imgL)
 
     lmb = 10000
     sigma = 1.5
 
-    wls_filter = cv2.ximgproc.createDisparityWLSFilter(matcher_left=stereoSGBM)
+    wls_filter = cv2.ximgproc.createDisparityWLSFilter(matcher_left=stereoSGBM_L)
     wls_filter.setLambda(lmb)
     wls_filter.setSigmaColor(sigma)
-    filtered_disp = wls_filter.filter(dis1, imgL, disparity_map_right=dis2)
-    filtered_disp = cv2.normalize(filtered_disp, filtered_disp, alpha=255, beta=0, norm_type=cv2.NORM_MINMAX)
+    filtered_disp_L = wls_filter.filter(disp_L, imgL, disparity_map_right=disp_R)
+    filtered_disp_L = cv2.normalize(filtered_disp_L, filtered_disp_L, alpha=255, beta=0, norm_type=cv2.NORM_MINMAX)
 
-    plt.imshow(filtered_disp,'gray')
+    plt.imshow(filtered_disp_L,'gray')
     plt.show()
-    cv2.imwrite('./pred/'+test_imgs[index]+'/disp1.png', filtered_disp)
+    cv2.imwrite('./pred/'+test_imgs[index]+'/disp1.png', filtered_disp_L)
