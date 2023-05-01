@@ -6,7 +6,7 @@ Given stereo image pairs (three stereo pairs are provided in   https://drive.goo
 2. OpenCV SGBM algorithm + Weighted Least Squares filter: ".\PSNR_Assignment2\PSNR_Python\opencv.py"
 3. PSNR calculation: ".\PSNR_Assignment2\PSNR_Python\psnr_cal.py"
 
-#Peak-SNR(PSNR) Result
+# Peak-SNR(PSNR) Result
 psnr_cal.py::test PASSED
 
 The Peak-SNR value of Art is %0.4f 
